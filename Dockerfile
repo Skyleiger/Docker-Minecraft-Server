@@ -27,8 +27,6 @@ RUN addgroup --gid 1000 minecraft \
 
 COPY files/sudoers* /etc/sudoers.d
 
-EXPOSE 25565 25575
-
 # hook into docker BuildKit --platform support
 # see https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
 ARG TARGETOS

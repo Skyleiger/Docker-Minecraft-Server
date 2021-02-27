@@ -132,7 +132,7 @@ services:
       EULA: "TRUE"
     volumes:
       # attach the relative directory 'data' to the container's /data path
-      ./data:/data
+      - ./data:/data
 ```
 
 ## Versions
@@ -729,15 +729,13 @@ every time you want to create new Minecraft server, you can now use
 
 ```
 minecraft-server:
+  image: itzg/minecraft-server
+
   ports:
     - "25565:25565"
 
   environment:
     EULA: "TRUE"
-
-  image: itzg/minecraft-server
-
-  container_name: mc
 
   tty: true
   stdin_open: true
@@ -1152,9 +1150,11 @@ For some cases, if e.g. after removing mods, it could be necessary to startup mi
 
 ### Enable Remote JMX for Profiling
 
-To enable remote JMX, such as for profiling with VisualVM or JMC, add the environment variable `ENABLE_JMX=true` and add a port forwarding of TCP port 7091, such as:
+To enable remote JMX, such as for profiling with VisualVM or JMC, add the environment variable `ENABLE_JMX=true`, set `JMX_HOST` to the IP/host running the Docker container, and add a port forwarding of TCP port 7091, such as:
 
-    -e ENABLE_JMX=true -p 7091:7091
+```
+-e ENABLE_JMX=true -e JMX_HOST=$HOSTNAME -p 7091:7091
+```
 
 ### Enable Aikar's Flags
 
